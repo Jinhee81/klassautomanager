@@ -1,0 +1,244 @@
+:root {
+  --text-color: #2e2e2e;
+  --background-color: ;
+  --accent-color: ;
+}
+.commandline {
+  display: flex;
+  justify-content: end;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 3px;
+  padding-top: 10px;
+}
+.row5 {
+  justify-content: space-around;
+}
+.item {
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 33.3333%;
+}
+.item label {
+  width: 100px;
+  display: inline-block;
+  padding-top: 5px;
+}
+.row input {
+  display: inline-block;
+}
+.comment {
+  width: 48%;
+  /* padding-left: 20px;
+    padding-right: 20px; */
+}
+.comment label {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1px;
+}
+label {
+  font-weight: bold;
+  color: var(--text-color);
+}
+input {
+  color: var(--text-color);
+}
+.commandline2 {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+#below {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.tab {
+  display: column;
+  justify-content: space-between;
+}
+.tab1 {
+  width: 100%;
+}
+.smalltab {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.smalltab label {
+  color: #24c2a7;
+}
+td.inline {
+  display: flex;
+}
+div.inline {
+  display: flex;
+}
+td.label {
+  font-weight: normal;
+}
+select.half {
+  width: 50%;
+}
+input.left {
+  flex-basis: 85%;
+}
+input.left2 {
+  flex-basis: 50%;
+}
+span.right {
+  padding-left: 3px;
+}
+.section1,
+.section2 {
+  width: 100%;
+}
+
+.section3 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section3 .section1 {
+  width: 45%;
+}
+.section3 .section2 {
+  width: 52%;
+}
+/* .carrow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 5px;
+}
+.carrow .left {
+  width: 49%;
+  display: flex;
+}
+.carrow .right {
+  width: 49%;
+  display: flex;
+}
+.carrow .left .leftl {
+  width: 30%;
+}
+.carrow .left .righti {
+  width: 67%;
+}
+.carrow .right .leftl {
+  width: 30%;
+}
+.carrow .right .righti {
+  width: 67%;
+} */
+.cc {
+  display: flex;
+  width: 49%;
+}
+.cc label {
+  width: 30%;
+}
+.cc input {
+  width: 60%;
+}
+.cc span {
+  width: 10%;
+}
+.tab3 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    display: column;
+    width:49%;
+    justify-content: start;
+}
+.right {
+    display: column;
+    width:49%;
+    justify-content: start;
+
+}
+.leftl {
+    width:30%;
+}
+.righti {
+    width:60%
+}
+
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  .item {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+  }
+  .comment {
+    width: 100%;
+    flex-direction: column;
+  }
+  .tab {
+    flex-direction: column;
+  }
+  .tab1 {
+    width: 100%;
+  }
+  .section3 {
+    display: column;
+    flex-direction: column-reverse;
+  }
+  .section3 .section1 {
+    width: 100%;
+  }
+  .section3 .section2 {
+    width: 100%;
+  }
+  /* .carrow {
+    flex-direction: column;
+    /* width: 100%; */
+  }
+  .carrow .left {
+    width: 100%;
+    justify-content: start;
+  }
+  .carrow .right {
+    width: 100%;
+    justify-content: start;
+  } */
+  .cc {
+    width: 100%;
+    justify-content: start;
+  }
+  /* .carrow .left .leftl {
+    width: 30%;
+  }
+  .carrow .left .righti {
+    width: 67%;
+  }
+  .carrow .right .leftl {
+    width: 30%;
+  }
+  .carrow .right .righti {
+    width: 67%;
+  } */
+  .cc label {
+    width: 30%;
+  }
+  .cc input {
+    width: 60%;
+  }
+  .cc span {
+    width: 10%;
+  }
+}

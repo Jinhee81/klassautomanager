@@ -1,0 +1,68 @@
+/* 이건 정말로 자주쓰는거를 한번 모아본 css파일 */
+
+@import url("https://fonts.googleapis.com/css?family=Gothic+A1:700|Nanum+Gothic");
+
+a.nav-link {
+  color: white;
+}
+
+span.navbar-text {
+  color: white;
+}
+
+.head {
+  /* border: solid; */
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
+}
+
+.loader-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #242f3f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  border: 4px solid #fff;
+  animation: loader 2s infinite ease;
+}
+
+th.primary,
+td.primary {
+  background-color: #cef6f5;
+}
+
+td.fontgrey {
+  color: #d8d8d8;
+}
+
+select.fontred,
+tr.fontred {
+  color: #f781be;
+}
+
+p.purple {
+  color: #bf00ff;
+}
+
+p.comment {
+  color: #bf00ff;
+  font-style: italic;
+  text-align: center;
+}
+
+select {
+    text-align : center;
+}
+
+/* html 색상 코드 : https://html-color-codes.info/Korean/ */

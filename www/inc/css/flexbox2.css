@@ -1,0 +1,276 @@
+:root {
+  --text-color: #2e2e2e;
+  --background-color: ;
+  --accent-color: ;
+  --table_title_color: #86c1ef;
+}
+.commandline {
+  display: flex;
+  justify-content: end;
+}
+/* .commandline .c1 {
+  width: 49%;
+  display: flex;
+  align-items: baseline;
+  padding-left: 20px;
+}
+.commandline .c2 {
+  width: 49%;
+  justify-content: flex-end;
+}
+.c11,
+.c22,
+.c33,
+.c44 {
+  width: 20%;
+} */
+.customer__inline {
+  display: flex;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 3px;
+  padding-top: 10px;
+}
+.row5 {
+  justify-content: space-around;
+}
+.item {
+  display: flex;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 33.3333%;
+}
+.item label {
+  width: 100px;
+  display: inline-block;
+  padding-top: 5px;
+}
+.row input {
+  display: inline-block;
+}
+.comment {
+  width: 48%;
+  /* padding-left: 20px;
+    padding-right: 20px; */
+}
+.comment label {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 1px;
+}
+label {
+  font-weight: bold;
+  color: var(--text-color);
+}
+input {
+  color: var(--text-color);
+}
+.commandline2 {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+#below {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.section3 {
+  display: flex;
+  justify-content: space-between;
+}
+.section31,
+.section32 {
+  width: 49%;
+}
+.smalltab {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.smalltab label {
+  color: #24c2a7;
+}
+.largetab label {
+  color: #24c2a7;
+}
+td.inline,
+div.inline {
+  display: flex;
+}
+select.half {
+  width: 50%;
+}
+input.left {
+  flex-basis: 85%;
+}
+input.left2 {
+  flex-basis: 50%;
+}
+span.right {
+  padding-left: 3px;
+}
+#carCommon {
+  display: flex;
+  justify-content: space-between;
+}
+#carCommon .left,
+#carCommon .right {
+  width: 49%;
+}
+.lefta {
+  display: flex;
+  justify-content: start;
+  padding-bottom: 3px;
+}
+.righta {
+  display: flex;
+  justify-content: start;
+  padding-bottom: 3px;
+}
+.leftl {
+  width: 30%;
+}
+.righti,
+.rights {
+  width: 70%;
+}
+.cc {
+  display: flex;
+  padding-bottom: 3px;
+}
+.cc label {
+  width: 30%;
+}
+.cc input {
+  width: 60%;
+}
+.cc span {
+  width: 10%;
+  padding-left: 2px;
+}
+td.car_etc_item_td {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.car_etc_item {
+  display: flex;
+  justify-content: space-between;
+}
+.car_etc_item label {
+  width: 18%;
+}
+.car_etc_item input {
+  width: 80%;
+}
+#leaseinfo {
+  display: flex;
+  justify-content: space-between;
+}
+.leaseleft {
+  width: 60%;
+}
+.leaseright {
+  width: 38%;
+}
+.rightw {
+  width: 60%;
+}
+.won {
+  padding-left: 3px;
+}
+#tab4lease {
+  display: none;
+}
+.table_title {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--table_title_color);
+  padding-left: 0px;
+  flex-wrap: wrap;
+}
+ul.rows {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 0px;
+  flex-wrap: wrap;
+}
+/* .table_item {
+  list-style: none;
+  padding: 5px;
+}
+.table_item_a {
+  flex-basis: 3%;
+}
+.table_item_b {
+  flex-basis: 8%;
+}
+.table_item_c {
+  flex-basis: 12%;
+}
+.rowsli {
+  list-style: none;
+  padding: 5px;
+}
+.rowsli_a {
+  flex-basis: 4%;
+}
+.rowsli_b {
+  flex-basis: 8%;
+}
+.rowsli_c {
+  flex-basis: 12%;
+} 테이블들 flexbox적용하려다가 안함, 너무 복잡해서*/
+
+@media screen and (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  .item {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 100%;
+  }
+  .comment {
+    width: 100%;
+    flex-direction: column;
+  }
+  .section3 {
+    flex-direction: column;
+  }
+  .section31,
+  .section32 {
+    width: 100%;
+  }
+  #carCommon {
+    flex-direction: column;
+  }
+  #carCommon .left,
+  #carCommon .right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .car_etc_item label {
+    width: 30%;
+  }
+  .car_etc_item input {
+    width: 70%;
+  }
+  #leaseinfo {
+    order: 3;
+  }
+  #tab4lease {
+    display: block;
+  }
+  /* #lease {
+    display: none;
+  } */
+}

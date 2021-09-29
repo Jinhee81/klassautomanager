@@ -1,0 +1,30 @@
+:root {
+  --text-color: #2e2e2e;
+  --background-color: ;
+  --accent-color: ;
+  --table_title_color: #86c1ef;
+}
+
+.section__customer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.customer__main,
+.customer__sub {
+  width: 48%;
+}
+
+.customer__inline {
+  display: flex;
+}
+
+@media screen and (max-width: 768px) {
+  .section__customer {
+    flex-direction: column;
+  }
+  .customer__main,
+  .customer__sub {
+    width: 100%;
+  }
+}

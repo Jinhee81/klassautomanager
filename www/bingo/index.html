@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="style.css" type = "text/css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Gothic+A1:700|Nanum+Gothic" rel="stylesheet"> -->
+  </head>
+
+  <style>
+  /* h3, label { font-family: Georgia, "맑은 고딕", serif; } */
+
+  .firstGame {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .secondGame {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 30px;
+  }
+  .thirdGame {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 30px;
+  }
+  .tdLeft {
+    border: solid 1px grey;
+    text-align: center;
+    height: 45px;
+  }
+  div {
+    margin-left: auto;
+    margin-right: auto;
+    height : auto;
+    /* border : 1px solid grey; */
+  }
+  h2 {
+    color : grey;
+  }
+  h3 {
+    color : grey;
+    margin-top: auto;
+    margin-bottom: 0px;
+  }
+  label{
+    font-size: x-large;
+    font-weight: bold;
+    color: grey;
+  }
+  p{
+    margin-top: 17px;
+    margin-bottom: 17px;
+  }
+  span{
+    font-style: italic;
+    color: skyblue;
+  }
+  table{
+    margin-top: 2px;
+    color: grey;
+  }
+</style>
+
+  <body>
+    <script>
+    var bingo = [];
+    var essential_number = 1;
+    var leftfontsize = 5;
+    var rightfontsize = 4;
+    var leftdwidth = 33;
+    var righttdwidth = 33;
+
+    for (var i = 0; i < 3; i++) {
+      bingo[i] = [];
+      do {
+        var inputNum = Math.floor(Math.random()*50+1);
+        if (!( bingo[i].includes(inputNum))) {
+          bingo[i].push(inputNum);
+        }
+      } while(bingo[i].length < 25); //빙고배열생성
+
+      var replaceIndex = Math.floor( Math.random() * 25 ); //essential_number 포함
+      if (!(bingo[i].includes(essential_number))) {
+       bingo[i].splice(replaceIndex, 1, essential_number);
+      }
+    }
+    function check(i){
+      if (bingo[i].includes(essential_number)) {
+       document.write("/* " + essential_number + "은 지우고 시작하세요.");
+      } else {
+       elert('필수숫자가 없어요!');
+      }
+    }
+
+    function makeLeft(i){
+      // document.write(bingo[i]);
+      var trArray=[0,5,10,15,20];
+      var closeTrArray= [4,9,14,19,24];
+      for(var j=0; j<25; j++) {
+       if(trArray.includes(j)){
+         document.write("<tr><td class='tdLeft'><font size='"+leftfontsize+"'><font color='grey'>"+bingo[i][j]+"</td>");
+       } else if (closeTrArray.includes(j)){
+         document.write("<td class='tdLeft'><font size='"+leftfontsize+"'><font color='grey'>"+bingo[i][j]+"</td></tr>");
+       } else {
+         document.write("<td class='tdLeft'><font size='"+leftfontsize+"'><font color='grey'>"+bingo[i][j]+"</td>");
+       }
+      }
+    }
+
+    function makeRight(i) {
+      var trArray = [1,6,11,16,21,26,31,36,41,46];
+      var closeTrArray = [5,10,15,20,25,30,35,40,45,50];
+      for (var x = 1; x < 51; x++) {
+        if((trArray.includes(x)) && (bingo[i].includes(x))){
+          document.write("<tr><td width='"+righttdwidth+"'><font Color = 'red'><font size='"+rightfontsize+"'>"+ x +"</td>");
+        } else if ((closeTrArray.includes(x)) && (bingo[i].includes(x))){
+          document.write("<td width='"+righttdwidth+"'><font Color = 'red'><font size='"+rightfontsize+"'>"+x+"</td></tr>");
+        } else if (bingo[i].includes(x)){
+          document.write("<td width='"+righttdwidth+"'><font Color = 'red'><font size='"+rightfontsize+"'>"+x+"</td>");
+        } else if (trArray.includes(x)) {
+          document.write("<tr><td width='"+righttdwidth+"'><font Color = 'grey'><font size='"+rightfontsize+"'>"+x+"</td>");
+        } else if (closeTrArray.includes(x)) {
+          document.write("<td width='"+righttdwidth+"'><font Color = 'grey'><font size='"+rightfontsize+"'>"+x+"</td></tr>");
+        } else {
+          document.write("<td width='"+righttdwidth+"'><font Color = 'grey'><font size='"+rightfontsize+"'>"+x+"</td>");
+        }
+      }
+    }
+    </script>
+    <div id='wholeGame'>
+      <div class="firstGame" style="height:25%">
+        <div class="left">
+          <label>첫번째 게임</label>
+          <span>&nbsp;&nbsp;<script>check(0);</script></span>
+          <table width='300'>
+            <script>makeLeft(0);</script>
+          </table> </div>
+        <div class='right'>
+          <h3>숫자판</h3>
+        <table>
+          <script>makeRight(0);</script>
+        </table>
+        </div>
+      </div>
+      <hr>
+
+      <div class="secondGame" style="height:25%">
+        <div class="left">
+          <label>두번째 게임</label>
+          <span>&nbsp;&nbsp;<script>check(1);</script></span>
+          <table width='300'>
+            <script>makeLeft(1);</script>
+          </table> </div>
+        <div class='right'>
+        <table>
+          <h3>숫자판</h3>
+          <script>makeRight(1);</script>
+        </table>
+        </div>
+      </div>
+      <hr>
+
+      <div class="thirdGame" style="height:25%">
+        <div class="left">
+          <label> 세번째 게임</label>
+          <span>&nbsp;&nbsp;<script>check(2);</script></span>
+          <table width='300'>
+            <script>makeLeft(2);</script>
+          </table> </div>
+        <div class='right'>
+          <h3>숫자판</h3>
+        <table>
+          <script>makeRight(2);</script>
+        </table>
+        </div>
+      </div>
+      <hr>
+      <div class="" style="height:25%;text-align:center;">
+        <font size="2">
+        Copyright &copy; Jinhee,Yu (info@leaseman.co.kr)<br>
+        공유오피스 비즈피스(<a href="http://www.bizffice.co.kr" target="_blank">www.bizffice.co.kr</a>) | 임대관리시스템 리스맨(<a href="http://www.leaseman.co.kr" target="_blank">www.leaseman.co.kr</a>) | 신차렌트리스 클라스오토(<a href="http://www.klassauto.com" target="_blank">www.klassauto.com</a>)
+        </font>
+      </div>
+  </div>
+</body>
+</html>
+<!-- 2020.3.12 업데이트 -->
