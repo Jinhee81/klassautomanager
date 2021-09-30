@@ -27,7 +27,7 @@ $sql = "insert into customer
          cn_name, 
          cn_contact, cn_email, cn_birthday,
          cn_companyname, cn_company_number, cn_company_number2,
-         usercode
+         usercode, created
         ) 
         values
         (
@@ -40,7 +40,8 @@ $sql = "insert into customer
             '{$fil['cn_companyname']}',
             '{$fil['cn_company_number']}',
             '{$fil['cn_company_number2']}',
-            {$fil['usercode']}
+            {$fil['usercode']},
+            now()
         )
         ";
 // echo $sql;

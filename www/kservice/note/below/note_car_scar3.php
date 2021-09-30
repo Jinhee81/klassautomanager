@@ -36,9 +36,9 @@
     <div class="righta right3">
         <label for="" class="leftl">블랙박스</label>
         <select class='form-control form-control-sm rights' name="blackbox">
-            <option value="21">상시모드</option>
-            <option value="26">주행모드</option>
-            <option value="26">없음</option>
+            <option value="상시모드">상시모드</option>
+            <option value="주행모드">주행모드</option>
+            <option value="없음">없음</option>
         </select>
     </div>
     <!-- <div class="righta right4">

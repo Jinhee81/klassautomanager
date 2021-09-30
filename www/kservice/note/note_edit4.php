@@ -38,7 +38,8 @@
             <div class="commandline">
                 <button class="btn btn-danger mr-1 btn-sm" id=btnSave>저장</button>
                 <button class="btn btn-outline-danger mr-1 btn-sm" id=btnDelete>삭제</button>
-                <a href='note2.php'><button type='button' class='btn btn-secondary btn-sm'><i class="fas fa-angle-double-right"></i> 상담목록</button></a>
+                <a href='note2.php'><button type='button' class='btn btn-secondary btn-sm'><i
+                            class="fas fa-angle-double-right"></i> 상담목록</button></a>
             </div>
 
             <div class="row row1">
@@ -49,6 +50,7 @@
                 <div class="item item2">
                     <label for="" class="left">담당자명</label>
                     <input type="text" class="form-control right" name="salesman" disabled>
+                    <input type="hidden" name="usercode" value="<?=$_SESSION['usercode']?>">
                 </div>
                 <div class="item item3">
                     <label for="" class="left">접수일</label>
@@ -157,8 +159,8 @@
             <div class="tab1">
                 <div class="smalltab tab11">
                     <label for="" class="">고객정보</label>
-                    <div class="tab2 command">
-                        <small class=""><u>저장</u></small>
+                    <div class="tab2 command customer">
+                        <small class=""><u id=createCustomer>저장</u></small>
                         <!-- <small class=""><u>삭제</u></small> -->
                     </div>
                 </div>
@@ -166,18 +168,27 @@
                     <table class="table table-sm table-borderless mb-0">
                         <?php include "below/note_customer.php"; ?>
                     </table>
+                    <div class="text-right">
+                        <small class="">등록일시 <span id=cn_created></span> |
+                            수정일시 <span id=cn_updated></span></small>
+                    </div>
+
                 </div>
             </div>
             <div class="tab2">
                 <div class="smalltab tab21">
                     <label for="" class="">차량정보</label>
                     <div class="tab2 command">
-                        <small class=""><u>저장</u></small>
+                        <small class=""><u id=createCar>저장</u></small>
                         <!-- <small class=""><u>삭제</u></small> -->
                     </div>
                 </div>
                 <div class="tab22 p-3 mb-2 text-dark border border-info rounded">
                     <?php include "below/note_car1.php"; ?>
+                    <div class="text-right">
+                        <small class="">등록일시 <span id=car_created></span> |
+                            수정일시 <span id=car_updated></span></small>
+                    </div>
                 </div>
             </div>
 
@@ -208,6 +219,10 @@
             </div>
             <div class="p-3 mb-2 text-dark border border-info rounded">
                 <?php include "below/note_contract.php"; ?>
+                <div class="text-right">
+                    <small class="">등록일시 <span id=ctr_created></span> |
+                        수정일시 <span id=ctr_updated></span></small>
+                </div>
             </div>
             <div class="tab2">
                 <div class="smalltab tab31">
@@ -219,6 +234,10 @@
                 </div>
                 <div class="tab32 p-3 mb-2 text-dark border border-info rounded">
                     <?php include "below/note_insurance.php"; ?>
+                    <div class="text-right">
+                        <small class="">등록일시 <span id=in_created></span> |
+                            수정일시 <span id=in_updated></span></small>
+                    </div>
                 </div>
             </div>
             <div class="tab3">
@@ -229,8 +248,14 @@
                         <!-- <small class=""><u>삭제</u></small> -->
                     </div>
                 </div>
-                <div class="p-3 mb-2 text-dark border border-info rounded" id="leaseinfo">
-                    <?php include "below/note_lease.php"; ?>
+                <div class="p-3 mb-2 text-dark border border-info rounded">
+                    <div class="" id="leaseinfo">
+                        <?php include "below/note_lease.php"; ?>
+                    </div>
+                    <div class="text-right">
+                        <small class="">등록일시 <span id=in_created></span> |
+                            수정일시 <span id=in_updated></span></small>
+                    </div>
                 </div>
             </div>
         </section>
@@ -256,114 +281,134 @@
     <?php
     include $_SERVER['DOCUMENT_ROOT'] . "/view/footer.php";
     ?>
-    <script src="f_note_edit.js"></script>
+    <script src="f_note_edit.js?<?=date('Ymd His')?>"></script>
     <script>
-        let id = <?= $id ?>;
+    let id = <?= $id ?>;
+    let id_cn = getParameterByName('id_cn');
+    note(id);
+
+    if (Number(id_cn) > 0) {
+        loadCustomer(id_cn);
+    }
+
+    $('input').attr('autocomplete', "off");
+
+    $('.dateType').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        currentText: '오늘',
+        closeText: '닫기'
+    })
+
+    $('#btnSave').on('click', function() {
+        let firstDate = $('input[name = firstDate]').val();
+        let channel = $('select[name=channel]').val();
+        let rentlease = $('select[name=rentlease]').val();
+        let danawaNumber = $('input[name = danawaNumber]').val();
+        let c_name = $('input[name = customerName]').val();
+        let c_contact = $('input[name = customerContact]').val();
+        let c_location = $('input[name = c_location]').val();
+        let brand = $('input[name = brand]').val();
+        let model = $('input[name = model]').val();
+        let c_content = $('textarea[name = c_content]').val();
+        let s_status = $('select[name=s_status]').val();
+        let c_status = $('select[name=c_status]').val();
+
+
+        // console.log(s_content);
+
+        // console.log(firstDate, channel, danawaNumber, c_name, c_contact, c_location, brand, model, c_content, s_content, rentlease);
+        noteEdit(firstDate, channel, danawaNumber, c_name, c_contact, c_location, brand, model, c_content, id,
+            rentlease, s_status, c_status);
         note(id);
+    })
 
-        $('input').attr('autocomplete', "off");
+    $('#btnDelete').on('click', function() {
+        function goCategoryPage(a) {
+            var frm = formCreate('delete', 'post', '../form/p_note_delete.php', '');
+            frm = formInput(frm, 'idnote', a);
+            formSubmit(frm);
+        }
 
-        $('.dateType').datepicker({
-            changeMonth: true,
-            changeYear: true,
-            showButtonPanel: true,
-            currentText: '오늘',
-            closeText: '닫기'
-        })
+        let confirm = window.confirm('정말 삭제하겠습니까?');
 
-        $('#btnSave').on('click', function() {
-            let firstDate = $('input[name = firstDate]').val();
-            let channel = $('select[name=channel]').val();
-            let rentlease = $('select[name=rentlease]').val();
-            let danawaNumber = $('input[name = danawaNumber]').val();
-            let c_name = $('input[name = customerName]').val();
-            let c_contact = $('input[name = customerContact]').val();
-            let c_location = $('input[name = c_location]').val();
-            let brand = $('input[name = brand]').val();
-            let model = $('input[name = model]').val();
-            let c_content = $('textarea[name = c_content]').val();
-            let s_status = $('select[name=s_status]').val();
-            let c_status = $('select[name=c_status]').val();
+        if (confirm) {
+            goCategoryPage(id);
+        }
+    })
+
+    $(document).ready(function() {
+        $('tr[name=cn_company_name]').hide();
+        $('tr[name=cn_company_no]').hide();
+        $('tr[name=cn_company_no2]').hide();
 
 
-            // console.log(s_content);
+    })
 
-            // console.log(firstDate, channel, danawaNumber, c_name, c_contact, c_location, brand, model, c_content, s_content, rentlease);
-            noteEdit(firstDate, channel, danawaNumber, c_name, c_contact, c_location, brand, model, c_content, id, rentlease, s_status, c_status);
-            note(id);
-        })
+    $('select[name=cn_div]').on('change', function() {
+        let cn_div = $(this).val();
+        // console.log(cn_div);
 
-        $('#btnDelete').on('click', function() {
-            function goCategoryPage(a) {
-                var frm = formCreate('delete', 'post', '../form/p_note_delete.php', '');
-                frm = formInput(frm, 'idnote', a);
-                formSubmit(frm);
-            }
+        cn_div_change(cn_div);
+    })
 
-            let confirm = window.confirm('정말 삭제하겠습니까?');
+    $('#createCustomer').on('click', function() {
+        let cn_div = $('select[name=cn_div]').val();
+        let cn_name = $('input[name=cn_name]').val();
+        let cn_contact = $('input[name=cn_contact]').val();
+        let cn_email = $('input[name=cn_email]').val();
+        let cn_birthday = $('input[name=cn_birthday]').val();
+        let cn_companyname = $('input[name=cn_companyname]').val();
+        let cn_company_number = $('input[name=cn_company_number]').val();
+        let cn_company_number2 = $('input[name=cn_company_number2]').val();
+        let usercode = $('input[name=usercode]').val();
+        createCustomer(id, cn_div, cn_name, cn_contact, cn_email, cn_birthday, cn_companyname,
+            cn_company_number,
+            cn_company_number2, usercode);
+    })
+    $(document).on('click', '#editCustomer', function() {
+        let id_cn = $('input[name=id_cn]').val();
+        let cn_div = $('select[name=cn_div]').val();
+        let cn_name = $('input[name=cn_name]').val();
+        let cn_contact = $('input[name=cn_contact]').val();
+        let cn_email = $('input[name=cn_email]').val();
+        let cn_birthday = $('input[name=cn_birthday]').val();
+        let cn_companyname = $('input[name=cn_companyname]').val();
+        let cn_company_number = $('input[name=cn_company_number]').val();
+        let cn_company_number2 = $('input[name=cn_company_number2]').val();
+        let usercode = $('input[name=usercode]').val();
+        // console.log(cn_companyname, cn_company_number);
+        editCustomer(id_cn, cn_div, cn_name, cn_contact, cn_email, cn_birthday, cn_companyname,
+            cn_company_number,
+            cn_company_number2);
+    })
+    $(document).on('click', '#deleteCustomer', function() {
+        let a = window.confirm('정말 삭제하시겠습니까?');
+        if (a) {
+            let id_cn = $('input[name=id_cn]').val();
+            deleteCustomer(id_cn, id);
+        }
+    })
 
-            if (confirm) {
-                goCategoryPage(id);
-            }
-        })
+    $('#btnAdd').on('click', function() {
+        let ordered = $('#optionRow tr').length + 1;
 
-        $(document).ready(function() {
-            $('tr[name=cn_company_name]').hide();
-            $('tr[name=cn_company_no]').hide();
-            $('tr[name=cn_company_no2]').hide();
-
-
-        })
-
-        $('select[name=cn_div]').on('change', function() {
-            let cn_div = $(this).val();
-            // console.log(cn_div);
-
-            cn_div_change(cn_div);
-        })
-
-        $('#btnAdd').on('click', function() {
-            let ordered = $('#optionRow tr').length + 1;
-
-            let row = `<tr class=text-center>
+        let row = `<tr class=text-center>
             <td name=op_ordered>${ordered}</td>
             <td><input type=text class='form-control form-control-sm text-center' name=eachOptionName></td>
             <td><input type=text class='form-control form-control-sm numberComma text-right eachOptionPrice' name=eachOptionPrice></td>
            </tr>`;
 
-            $('#optionRow').append(row);
-            $('.eachOptionPrice').on('keyup', function() { //옵션가
-                // $(this).number(true);
-
-                let optionTotalPrice = 0;
-
-                for (let i = 0; i < $('#optionRow tr').length; i++) {
-                    let eachOptionPrice = $(`#optionRow tr:eq(${i})`).find('input[name=eachOptionPrice]').val();
-
-                    optionTotalPrice += Number(eachOptionPrice.replace(',', ''));
-                }
-
-                // $('#optionTotalPrice').empty();
-                $('#optionTotalPrice').val(optionTotalPrice);
-
-                let price1 = $('#price').val(); //소비자가
-                let price2 = optionTotalPrice + Number(price1.replace(',', '')); //총합계
-                $('#carPrice1').val(price2);
-                let price3 = Number($('#carPrice2').val().replace(',', '')); //할인금액
-                let price4 = price2 - price3;
-
-                $('#carPrice3').val(price4);
-            })
-        })
-
-        $('#price').on('keyup', function() { //소비자가
-            // $(this).select();
+        $('#optionRow').append(row);
+        $('.eachOptionPrice').on('keyup', function() { //옵션가
             // $(this).number(true);
 
             let optionTotalPrice = 0;
 
             for (let i = 0; i < $('#optionRow tr').length; i++) {
-                let eachOptionPrice = $(`#optionRow tr:eq(${i})`).find('input[name=eachOptionPrice]').val();
+                let eachOptionPrice = $(`#optionRow tr:eq(${i})`).find('input[name=eachOptionPrice]')
+                    .val();
 
                 optionTotalPrice += Number(eachOptionPrice.replace(',', ''));
             }
@@ -375,34 +420,61 @@
             let price2 = optionTotalPrice + Number(price1.replace(',', '')); //총합계
             $('#carPrice1').val(price2);
             let price3 = Number($('#carPrice2').val().replace(',', '')); //할인금액
-            let price4 = price2 - price3; //할인적용금액
+            let price4 = price2 - price3;
+
             $('#carPrice3').val(price4);
         })
+    })
 
-        $('#carPrice2').on('keyup', function() { //할인가
-            // $(this).number(true);
+    $('#price').on('keyup', function() { //소비자가
+        // $(this).select();
+        // $(this).number(true);
 
-            let optionTotalPrice = 0;
+        let optionTotalPrice = 0;
 
-            for (let i = 0; i < $('#optionRow tr').length; i++) {
-                let eachOptionPrice = $(`#optionRow tr:eq(${i})`).find('input[name=eachOptionPrice]').val();
+        for (let i = 0; i < $('#optionRow tr').length; i++) {
+            let eachOptionPrice = $(`#optionRow tr:eq(${i})`).find('input[name=eachOptionPrice]').val();
 
-                optionTotalPrice += Number(eachOptionPrice.replace(',', ''));
-            }
+            optionTotalPrice += Number(eachOptionPrice.replace(',', ''));
+        }
 
-            // $('#optionTotalPrice').empty();
-            $('#optionTotalPrice').val(optionTotalPrice);
+        // $('#optionTotalPrice').empty();
+        $('#optionTotalPrice').val(optionTotalPrice);
 
-            let price1 = $('#price').val(); //소비자가
-            let price2 = optionTotalPrice + Number(price1.replace(',', '')); //총합계
-            $('#carPrice1').val(price2);
-            let price3 = Number($(this).val().replace(',', '')); //할인금액
-            let price4 = price2 - price3; //할인적용금액
-            $('#carPrice3').val(price4);
-        })
+        let price1 = $('#price').val(); //소비자가
+        let price2 = optionTotalPrice + Number(price1.replace(',', '')); //총합계
+        $('#carPrice1').val(price2);
+        let price3 = Number($('#carPrice2').val().replace(',', '')); //할인금액
+        let price4 = price2 - price3; //할인적용금액
+        $('#carPrice3').val(price4);
+    })
 
-        // $('#carPrice2').select();
+    $('#carPrice2').on('keyup', function() { //할인가
+        // $(this).number(true);
+
+        let optionTotalPrice = 0;
+
+        for (let i = 0; i < $('#optionRow tr').length; i++) {
+            let eachOptionPrice = $(`#optionRow tr:eq(${i})`).find('input[name=eachOptionPrice]').val();
+
+            optionTotalPrice += Number(eachOptionPrice.replace(',', ''));
+        }
+
+        // $('#optionTotalPrice').empty();
+        $('#optionTotalPrice').val(optionTotalPrice);
+
+        let price1 = $('#price').val(); //소비자가
+        let price2 = optionTotalPrice + Number(price1.replace(',', '')); //총합계
+        $('#carPrice1').val(price2);
+        let price3 = Number($(this).val().replace(',', '')); //할인금액
+        let price4 = price2 - price3; //할인적용금액
+        $('#carPrice3').val(price4);
+    })
+
+    // $('#carPrice2').select();
     </script>
+
+    <script src="f_car.js?<?=date('Ymd His')?>"></script>
 </body>
 
 </html>

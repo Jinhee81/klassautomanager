@@ -144,41 +144,10 @@ function cn_div_change (a) {
     }
 }
 
-function loadCustomer (a){
-    $.ajax({
-        url: '../ajax/customer/c_load.php',
-        method: 'post',
-        data: {
-            'id_cn': a
-        },
-        success: function(data) {
-            data = JSON.parse(data);
-            // console.log(data);
-
-            if (data === 'error_occured') {
-                alert('앗, 에러가 발생했어요. 관리자에게 문의하세요ㅜㅜ');
-            } else {
-                // console.log('solmi');
-                cn_div_change(data[2])
-
-                $(`select[name=cn_div] option[value=${data[2]}]`).attr('selected', true);
-                $('input[name = id_cn]').val(data[0]);
-                $('input[name = cn_email]').val(data[5]);
-                $('input[name = cn_birthday]').val(data['cn_birthday']);
-                $('input[name = cn_companyname]').val(data['cn_companyname']);
-                $('input[name = cn_company_number]').val(data['cn_company_number']);
-                $('input[name = cn_company_number2]').val(data['cn_company_number2']);
-
-                $('.tab2.command').html(`<small class=""><u id=editCustomer>수정</u></small>
-                <small class=""><u id=deleteCustomer>삭제</u></small>`);
-            }
-        }
-    })
-}
 
 function editCustomer (a, b, c, d, e, f, g, h, i) {
     let note = $.ajax({
-        url: '../ajax/ajax_customer_note_edit.php',
+        url: '../ajax/customer/c_updated.php',
         method: 'post',
         data: {
             'id_cn': a,
@@ -196,7 +165,7 @@ function editCustomer (a, b, c, d, e, f, g, h, i) {
 
             if (data === 'success') {
                 alert('고객정보를 수정했습니다. 고객화면에서도 확인할수 있어요^^');
-
+                
                 location.reload();
             } else {
                 alert('앗, 고객정보 수정 과정에서 에러가 발생했어요. 관리자에게 문의하세요ㅜㅜ');
@@ -215,7 +184,7 @@ function deleteCustomer (a,b) {
         },
         success: function(data) {
             data = JSON.parse(data);
-
+            
             if (data === 'success') {
                 alert('고객정보를 삭제했습니다. 고객화면에서도 삭제되었습니다');
                 
@@ -224,13 +193,63 @@ function deleteCustomer (a,b) {
                 let aa = '&id_cn='+u_id_cn;
                 let bb = '&id_cn=null';
                 let reUrl = presentUrl.replace(aa, bb);
-
+                
                 // console.log(reUrl);
 
                 history.pushState(null, null, reUrl);
                 location.reload();
             } else {
                 alert('앗, 고객 삭제 과정에서 에러가 발생했어요. 관리자에게 문의하세요ㅜㅜ');
+            }
+        }
+    })
+}
+
+function loadCustomer (a){
+    $.ajax({
+        url: '../ajax/customer/c_load.php',
+        method: 'post',
+        data: {
+            'id_cn': a
+        },
+        success: function(data) {
+            data = JSON.parse(data);
+            console.log(data);
+
+            if (data === 'error_occured') {
+                alert('앗, 에러가 발생했어요. 관리자에게 문의하세요ㅜㅜ');
+            } else {
+                // console.log('solmi');
+                cn_div_change(data[2])
+
+                let created; 
+                let updated;
+
+                $(`select[name=cn_div] option[value=${data[2]}]`).attr('selected', true);
+                $('input[name = id_cn]').val(data[0]);
+                $('input[name = cn_email]').val(data[5]);
+                $('input[name = cn_birthday]').val(data['cn_birthday']);
+                $('input[name = cn_companyname]').val(data['cn_companyname']);
+                $('input[name = cn_company_number]').val(data['cn_company_number']);
+                $('input[name = cn_company_number2]').val(data['cn_company_number2']);
+
+                if(data['created']==null){
+                    created = '-';
+                } else {
+                    created = data['created'];
+                }
+
+                $('#cn_created').text(created);
+
+                if(data['updated']==null){
+                    updated = '-';
+                } else {
+                    updated = data['updated'];
+                }
+                $('#cn_updated').text(updated);
+
+                $('.tab2.command.customer').html(`<small class=""><u id=editCustomer>수정</u></small>
+                <small class=""><u id=deleteCustomer>삭제</u></small>`);
             }
         }
     })

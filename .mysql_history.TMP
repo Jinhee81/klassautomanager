@@ -1,0 +1,23 @@
+create database klassauto
+;
+show databases;
+use charm3007;
+exit;
+create database klassauto;
+exit;
+use charm3007
+show tables;
+mysqldump -ucharm3007 -psolmi8808 charm3007>/Users/lyllam1/Library/Mobile\ Documents/com\~apple\~CloudDocs/programming/db/kmanager
+;
+mysqldump -ucharm3007 -psolmi8808 charm3007 > /Users/lyllam1/Desktop/temporary/klassauto.sql;
+use charm3007
+create table note_2_option (
+id_n_option int(11) not null auto_increment
+op_ordered int(11),
+op_name varchar(200),
+op_price int(11),
+id_n_car int(11),
+primary key (id_n_option));
+create table note_2_option ( id_n_option int(11) not null auto_increment op_ordered int(11), op_name varchar(200), op_price int(11), id_n_car int(11), primary key (id_n_option));
+create table note_2_option ( id_n_option int(11) not null auto_increment, op_ordered int(11), op_name varchar(200), op_price int(11), id_n_car int(11), primary key (id_n_option));
+desc note_2_option;
