@@ -1,5 +1,5 @@
 <?php
-include "car4.php"; //조회조건에 필요한 php파일
+// include "car4.php"; //조회조건에 필요한 php파일
 ?>
 <table class="table table-borderless mb-0">
     <tr class="">
@@ -27,12 +27,11 @@ include "car4.php"; //조회조건에 필요한 php파일
     </tr>
 </table>
 
-<script>
+<!-- <script>
     let brandArray = <?= json_encode($brandArray) ?>;
     let modelArray = <?= json_encode($modelArray) ?>;
     let lineupArray = <?= json_encode($lineupArray) ?>;
     let trimArray = <?= json_encode($trimArray) ?>;
-    // console.log(trimArray);
 </script>
 
-<script src="j_car4.js?<?= date('YmdHis') ?>"></script>
+<script src="j_car4.js?<?= date('YmdHis') ?>"></script> -->

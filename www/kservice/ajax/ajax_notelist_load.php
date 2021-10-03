@@ -23,6 +23,10 @@ $sql = "select
             rentlease, c_content,
             s_status, c_status,
             id_cn,
+            id_n_car,
+            id_n_contract,
+            id_n_insurance,
+            id_n_lease,
             user.name,
             user.department
          from note

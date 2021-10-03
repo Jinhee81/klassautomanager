@@ -70,31 +70,31 @@
     ?>
 
     <script class="">
-    let department = '<?= $_SESSION['department'] ?>';
-    console.log(department);
+        let department = '<?= $_SESSION['department'] ?>';
+        console.log(department);
 
-    function outsideTable() {
-        let outsideTable = $.ajax({
-            url: '../ajax/ajax_notelist_load.php',
-            method: 'post',
-            data: {
-                'department': department
-            },
-            success: function(data) {
-                data = JSON.parse(data);
-                // console.log(data);
-                console.log(data.length);
-                let returns = '';
+        function outsideTable() {
+            let outsideTable = $.ajax({
+                url: '../ajax/ajax_notelist_load.php',
+                method: 'post',
+                data: {
+                    'department': department
+                },
+                success: function(data) {
+                    data = JSON.parse(data);
+                    // console.log(data);
+                    console.log(data.length);
+                    let returns = '';
 
 
-                if (data.length === 0) {
-                    returns = `<tr><td colspan=11>아직 접수된 상담이 없네요. 서둘러 등록해주세요~^^</td></tr>`;
-                } else {
-                    let i = 1;
-                    $.each(data, function(key, value) {
-                        returns += `<tr>
+                    if (data.length === 0) {
+                        returns = `<tr><td colspan=11>아직 접수된 상담이 없네요. 서둘러 등록해주세요~^^</td></tr>`;
+                    } else {
+                        let i = 1;
+                        $.each(data, function(key, value) {
+                            returns += `<tr>
                             <td>${i}</td>
-                            <td><a href=note_edit4.php?page=carInfo&id=${value.idnote}&id_cn=${value.id_cn}>${value.firstDate}</a></td>
+                            <td><a href=note_edit4.php?page=carInfo&id=${value.idnote}&id_cn=${value.id_cn}&idcar=${value.id_n_car}&idcontract=${value.id_n_contract}&idinsu=${value.id_n_insurance}&idlea=${value.id_n_lease}>${value.firstDate}</a></td>
                             <td>${value.s_status}</td>
                             <td>${value.c_status}</td>
                             <td>${value.channel}</td>
@@ -108,28 +108,28 @@
                             <td>${value.name}</td>
                             <td>${value.department}</td>
                             </tr>`;
-                        i++;
-                    })
+                            i++;
+                        })
+                    }
+                    $('#tbodyArea').html(returns);
+
                 }
-                $('#tbodyArea').html(returns);
+            })
 
-            }
+            return outsideTable;
+        }
+
+        outsideTable();
+
+        $(document).ready(function() {
+            $('.abc').mouseover(function() {
+                console.log('solmi');
+            })
+            // $('.abc').tooltip('show');
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip();
+            })
         })
-
-        return outsideTable;
-    }
-
-    outsideTable();
-
-    $(document).ready(function() {
-        $('.abc').mouseover(function() {
-            console.log('solmi');
-        })
-        // $('.abc').tooltip('show');
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-        })
-    })
     </script>
 </body>
 

@@ -74,3 +74,12 @@ git commit -a 'first commit'
 git commit -m 'first commit'
 git push -u origin main
 git remote add origin https://github.com/Jinhee81/klassautomanager.git
+mysql -ucharm3007 -p
+git stuse
+git status
+git add .
+git status
+git commit -m '노트고객 및 노트차량 insert'
+git branch
+git push origin main
+mysql -ucharm3007 -p
